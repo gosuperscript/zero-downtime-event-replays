@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Mannum\ZeroDowntimeEventReplays\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ZeroDowntimeEventReplaysCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'zero-downtime-event-replays';
 
     public $description = 'My command';
 
