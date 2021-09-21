@@ -121,7 +121,7 @@ class ReplayManager
 
     }
 
-    public function removeProjection(string $key) : void
+    public function removeReplay(string $key) : void
     {
 
     }

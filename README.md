@@ -55,8 +55,28 @@ composer require mannum/zero-downtime-event-replays
 ## Usage
 
 ```php
-$zero-downtime-event-replays = new Mannum\ZeroDowntimeEventReplays();
-echo $zero-downtime-event-replays->echoPhrase('Hello, Mannum!');
+$manager = resolve(\Mannum\ZeroDowntimeEventReplays\ReplayManager::class);
+// Create a replay
+$manager->createReplay('your_replay_key');
+
+// Start replay history
+$manager->startReplay('your_replay_key');
+
+// get the state & progress of your replay 
+$manager->getReplay('your_replay_key');
+
+// how many events is the replay behind the event stream?
+$manager->getReplayLag('your_replay_key');
+
+// once a replay is up to date with the event stream, we can project events to it when they happen 
+$manager->startProjectingToReplay('your_replay_key');
+
+// Once the replay is approved, we can promote it to production
+$manager->putReplayLive('your_replay_key');
+
+// Or we can delete the replay
+$manager->removeReplay('your_replay_key');
+
 ```
 
 ## Testing
