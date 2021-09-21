@@ -3,8 +3,8 @@
 namespace Mannum\ZeroDowntimeEventReplays\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Mannum\ZeroDowntimeEventReplays\ZeroDowntimeEventReplaysServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

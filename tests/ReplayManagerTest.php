@@ -15,10 +15,10 @@ class ReplayManagerTest extends TestCase
         $manager->createReplay('foo', []);
 
         $thrown = false;
+
         try {
             $manager->createReplay('foo', []);
-        } catch (CreateReplayException $e)
-        {
+        } catch (CreateReplayException $e) {
             $thrown = true;
         }
         $this->assertTrue($thrown, "Exception StartReplayException expected but not thrown");
@@ -33,7 +33,7 @@ class ReplayManagerTest extends TestCase
 
         $this->expectException(\Exception::class);
         $manager->createReplay('foo', [
-            'ThisProjectorIsNotRegistered'
+            'ThisProjectorIsNotRegistered',
         ]);
 
         $this->assertNull($repo->getReplayByKey('foo'));
@@ -48,7 +48,7 @@ class ReplayManagerTest extends TestCase
         $manager = new ReplayManager($repo, $projectionist);
 
         $manager->createReplay('foo', [
-            'RegisteredProjector'
+            'RegisteredProjector',
         ]);
 
         $replay = $repo->getReplayByKey('foo');
@@ -64,6 +64,5 @@ class ReplayManagerTest extends TestCase
 
         $manager->createReplay('foo', []);
         $manager->startReplay('foo');
-
     }
 }

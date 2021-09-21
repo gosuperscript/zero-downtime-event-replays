@@ -16,6 +16,7 @@ class FakeProjectionist extends Projectionist
     public function addProjector($projector): Projectionist
     {
         $this->projectors[$projector] = new FakeProjector();
+
         return $this;
     }
 

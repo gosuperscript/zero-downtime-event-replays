@@ -33,7 +33,7 @@ class Replay
     {
         $this->lastProjectedEvent = $lastProjectedEvent;
         $play = $this->getActivePlay();
-        if($play){
+        if ($play) {
             $play->setLastProjectedEvent($lastProjectedEvent);
             $this->plays[$play->id] = $play;
         }
@@ -51,7 +51,7 @@ class Replay
     {
         /** @var Play $play */
         $play = $this->getActivePlay();
-        if(!$play) {
+        if (! $play) {
             return;
         }
         $play->finished($finishedAt);
@@ -62,9 +62,10 @@ class Replay
 
     public function getActivePlay(): ?Play
     {
-        if (!$this->activePlayId) {
+        if (! $this->activePlayId) {
             return null;
         }
+
         return $this->plays[$this->activePlayId];
     }
 

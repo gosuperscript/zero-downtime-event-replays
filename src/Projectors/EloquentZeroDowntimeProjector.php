@@ -12,7 +12,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
 {
     protected ?string $connection = null;
 
-    abstract function models() : array;
+    abstract public function models(): array;
 
     public function useConnection(string $connection): void
     {
@@ -23,12 +23,12 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
     private function configureConnections(): void
     {
         foreach ($this->models() as $model) {
-            if(!$model instanceof Model){
+            if (! $model instanceof Model) {
                 throw new Exception("models in the models method should extend eloquents model class");
             }
             $defaultConnection = $model->getConnectionName() ?? config('database.default');
             $ghostConnection = $this->getGhostConnectionForModel($model);
-            if(array_key_exists($ghostConnection, config('database.connections'))){
+            if (array_key_exists($ghostConnection, config('database.connections'))) {
                 return;
             }
 
@@ -44,11 +44,10 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
         }
     }
 
-    public function getGhostConnectionForModel(Model $model) : string
+    public function getGhostConnectionForModel(Model $model): string
     {
         $defaultConnection = $model->getConnectionName() ?? config('database.default');
+
         return 'replay_' . $this->connection . '_' . $defaultConnection;
     }
-
-
 }
