@@ -6,5 +6,4 @@ use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class FakeProjector extends Projector
 {
-
 }

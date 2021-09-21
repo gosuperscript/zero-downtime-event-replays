@@ -11,12 +11,14 @@ class RedisReplayRepository implements ReplayRepository
     public function __construct(public string $setKey = 'zero_downtime_replays')
     {
     }
+
     public function getReplayByKey(string $key): ?Replay
     {
         $json = Redis::hget($this->setKey, $key);
-        if(!$json){
+        if (! $json) {
             return null;
         }
+
         return ReplaySerializer::fromArray(json_decode($json, true));
     }
 

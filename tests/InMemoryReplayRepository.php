@@ -8,6 +8,7 @@ use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 class InMemoryReplayRepository implements ReplayRepository
 {
     public array $replays = [];
+
     public function getReplayByKey(string $key): ?Replay
     {
         return $this->replays[$key] ?? null;

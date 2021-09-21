@@ -19,6 +19,7 @@ class Play
     {
         $this->lastProjected = $lastProjected;
     }
+
     public function finished(?CarbonInterface $finished_at = null)
     {
         $this->finished_at = $finished_at ?? now();

@@ -27,7 +27,7 @@ class ReplayManager
     public function createReplay(string $key, array $projectorClassNames): void
     {
         $replay = $this->replayRepository->getReplayByKey($key);
-        if($replay){
+        if ($replay) {
             throw CreateReplayException::replayAlreadyExists($key);
         }
 
@@ -41,7 +41,7 @@ class ReplayManager
             });
 
         $replay = new Replay($key);
-        foreach ($projectors as $projectorName){
+        foreach ($projectors as $projectorName) {
             $replay->addProjector($projectorName);
         }
 
@@ -59,11 +59,11 @@ class ReplayManager
     public function startReplay(string $key, int $fromEventId = 0)
     {
         $replay = $this->replayRepository->getReplayByKey($key);
-        if(!$replay->readyToStart()){
+        if (! $replay->readyToStart()) {
             throw new \Exception("cannot start");
         }
         $projectors = collect($replay->projectors)->map(function (string $projectorName) {
-           return $this->projectionist->getProjector($projectorName);
+            return $this->projectionist->getProjector($projectorName);
         })->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
             $zeroDowntimeProjector->useConnection($key);
         });
@@ -77,11 +77,13 @@ class ReplayManager
         };
 
         $replay->started($fromEventId);
+
         try {
             $this->replayRepository->persist($replay);
         } catch (\Exception $e) {
             // Persist so we always have the latest replayed event ID even on failure
             $this->replayRepository->persist($replay);
+
             throw $e;
         }
 
@@ -94,9 +96,10 @@ class ReplayManager
     public function getReplayLag(string $key): int
     {
         $replay = $this->getReplay($key);
-        if(!$replay){
+        if (! $replay) {
             throw new \Exception("Replay not found");
         }
+
         return $this->storedEventRepository->countAllStartingFrom($replay->lastProjectedEvent);
     }
 
@@ -105,10 +108,10 @@ class ReplayManager
         return $this->replayRepository->getReplayByKey($key);
     }
 
-    public function startProjectingToReplay(string $key) : void
+    public function startProjectingToReplay(string $key): void
     {
         // todo, should lock events table here, to prevent race conditions
-        if($this->getReplayLag($key) !== 0){
+        if ($this->getReplayLag($key) !== 0) {
             throw new \Exception("Projection is lagging, make sure projection is up to date first before enabling projections");
         }
         $replay = $this->replayRepository->getReplayByKey($key);
@@ -118,11 +121,9 @@ class ReplayManager
 
     public function putReplayLive(string $key)
     {
-
     }
 
     public function removeReplay(string $key) : void
     {
-
     }
 }

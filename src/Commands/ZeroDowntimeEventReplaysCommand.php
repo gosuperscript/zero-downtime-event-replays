@@ -28,16 +28,17 @@ class ZeroDowntimeEventReplaysCommand extends ReplayCommand
         $projectors = $this->selectProjectors($this->argument('projector'));
 
         foreach ($projectors as $projector) {
-            if(!$projector instanceof ZeroDowntimeProjector)
-            {
+            if (! $projector instanceof ZeroDowntimeProjector) {
                 $class = get_class($projector);
                 $this->warn("Projector {$class} is not implementing the ZeroDowntimeProjector interface and therefore cant be used in zero downtime replays");
+
                 return;
             }
         }
 
         if (is_null($projectors)) {
             $this->warn('No projectors selected to replay events to!');
+
             return;
         }
 
@@ -51,8 +52,6 @@ class ZeroDowntimeEventReplaysCommand extends ReplayCommand
 
 
         $this->replay($projectors, (int)$this->option('from'));
-
-
     }
 
     public function replay(Collection $projectors, int $startingFrom): void
