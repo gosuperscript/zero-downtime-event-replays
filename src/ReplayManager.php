@@ -123,7 +123,7 @@ class ReplayManager
     {
     }
 
-    public function removeReplay(string $key) : void
+    public function removeReplay(string $key): void
     {
     }
 }
