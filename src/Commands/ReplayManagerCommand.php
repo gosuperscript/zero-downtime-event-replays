@@ -3,7 +3,6 @@
 namespace Mannum\ZeroDowntimeEventReplays\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\OutputStyle;
 use Mannum\ZeroDowntimeEventReplays\ReplayManager;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
@@ -20,8 +19,10 @@ class ReplayManagerCommand extends Command
     public function run(InputInterface $input, OutputInterface $output)
     {
         $this->symfonyOutput = $output;
+
         return parent::run(
-            $input, $output
+            $input,
+            $output
         );
     }
 

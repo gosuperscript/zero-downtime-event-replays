@@ -11,15 +11,14 @@ class EnableLiveProjection extends Command
 
     protected $description = 'Replay manager: enable projectors to play to projection';
 
-
     public function handle(ReplayManager $replayManager)
     {
         $key = $this->argument('key');
 
         $lag = $replayManager->getReplayLag($key);
 
-        if($lag > 0){
-            if($this->confirm("Lag of {$lag} events detected. Replay first before starting live projectors?")){
+        if ($lag > 0) {
+            if ($this->confirm("Lag of {$lag} events detected. Replay first before starting live projectors?")) {
                 $replayManager->startReplay($key);
                 $this->info("replay done");
             }

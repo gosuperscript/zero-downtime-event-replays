@@ -10,7 +10,7 @@ interface ReplayRepository
 
     public function persist(Replay $replay);
 
-    public function getLiveReplaysForProjector(string $class) : array;
+    public function getLiveReplaysForProjector(string $class): array;
 
-    public function delete(string $key) : void;
+    public function delete(string $key): void;
 }

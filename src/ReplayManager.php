@@ -90,6 +90,7 @@ class ReplayManager
             // Persist so we always have the latest replayed event ID even on failure
             $replay->finished();
             $this->replayRepository->persist($replay);
+
             throw $e;
         }
 

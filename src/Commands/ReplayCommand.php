@@ -3,12 +3,8 @@
 namespace Mannum\ZeroDowntimeEventReplays\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\OutputStyle;
 use Mannum\ZeroDowntimeEventReplays\ReplayManager;
 use Spatie\EventSourcing\StoredEvents\StoredEvent;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleSectionOutput;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class ReplayCommand extends Command
 {
@@ -23,21 +19,24 @@ class ReplayCommand extends Command
         $key = $this->argument('key');
 
         $replay = $this->replayManager->getReplay($key);
-        if(!$replay){
+        if (! $replay) {
             $this->warn("Replay with key {$key} not found.");
+
             return;
         }
         if ($replay->activePlayId !== null) {
             $this->warn("replay still in progress.");
+
             return;
         }
 
-        if ($replay->projectionsEnabled){
+        if ($replay->projectionsEnabled) {
             $this->warn("Live projections already projecting. Stop this first.");
+
             return;
         }
 
-        if($this->option('restart')){
+        if ($this->option('restart')) {
             $replay->lastProjectedEvent = 0;
             $this->replayManager->resetReplay($key);
             $this->info("replay reset");

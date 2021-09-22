@@ -28,7 +28,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
         $this->configureConnections();
     }
 
-    public function promoteConnectionToProduction() : void
+    public function promoteConnectionToProduction(): void
     {
         foreach ($this->models() as $model) {
             if (! $model instanceof Model) {

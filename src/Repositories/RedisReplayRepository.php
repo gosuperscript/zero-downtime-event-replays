@@ -31,9 +31,10 @@ class RedisReplayRepository implements ReplayRepository
     public function getLiveReplaysForProjector(string $projectorName): array
     {
         $replays = Redis::hgetall($this->setKey);
+
         return collect($replays)->map(function ($json) {
             return ReplaySerializer::fromArray(json_decode($json, true));
-        })->filter(function (Replay $replay){
+        })->filter(function (Replay $replay) {
             return $replay->projectionsEnabled;
         })->filter(function (Replay $replay) use ($projectorName) {
             return $replay->containsProjector($projectorName);
