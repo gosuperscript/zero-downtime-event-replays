@@ -73,4 +73,9 @@ class Replay
     {
         $this->projectionsEnabled = true;
     }
+
+    public function containsProjector(string $projectorName): bool
+    {
+        return in_array($projectorName, $this->projectors);
+    }
 }

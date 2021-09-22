@@ -24,7 +24,7 @@ class ReplaySerializer
         $replay->projectors = $array['projectors'];
         $replay->lastProjectedEvent = $array['last_projected_event'];
         $replay->activePlayId = $array['active_play_id'];
-        $replay->projectionsEnabled = $array['enabled_projections'];
+        $replay->projectionsEnabled = $array['enabled_projections'] ?? false;
         $replay->plays = self::playsFromArray($array['plays']);
 
         return $replay;

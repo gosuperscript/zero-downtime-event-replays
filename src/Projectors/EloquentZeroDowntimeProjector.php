@@ -5,11 +5,19 @@ namespace Mannum\ZeroDowntimeEventReplays\Projectors;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Mannum\ZeroDowntimeEventReplays\Replay;
+use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Mannum\ZeroDowntimeEventReplays\ZeroDowntimeProjector;
+use Spatie\EventSourcing\EventHandlers\HandlesEvents;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
+use Spatie\EventSourcing\StoredEvents\StoredEvent;
 
 abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDowntimeProjector
 {
+    use HandlesEvents {
+        handle as private handleEvent;
+    }
+
     protected ?string $connection = null;
 
     abstract public function models(): array;
@@ -18,6 +26,41 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
     {
         $this->connection = $connection;
         $this->configureConnections();
+    }
+
+    public function promoteConnectionToProduction() : void
+    {
+        foreach ($this->models() as $model) {
+            if (! $model instanceof Model) {
+                throw new Exception("models in the models method should extend eloquents model class");
+            }
+            $ghostConnectionTable = config('database.connections.' . $this->getGhostConnectionForModel($model) . '.prefix') . $model->getTable();
+
+//            ALTER TABLE vendors RENAME TO suppliers;
+//            DB::connection($model->getConnectionName())->statement("RENAME TABLE {$model->getTable()} TO {$ghostConnectionTable}_old_prod;");
+
+            DB::connection($model->getConnectionName())->statement("ALTER TABLE {$model->getTable()} RENAME TO {$ghostConnectionTable}_old_prod;");
+            DB::connection($model->getConnectionName())->statement("ALTER TABLE {$ghostConnectionTable} RENAME TO {$model->getTable()};");
+            DB::connection($model->getConnectionName())->statement("ALTER TABLE {$ghostConnectionTable}_old_prod RENAME TO {$ghostConnectionTable};");
+        }
+    }
+
+    public function handle(StoredEvent $storedEvent)
+    {
+        $this->handleEvent($storedEvent);
+        // project to live parallel projectors
+        $replayRepository = resolve(ReplayRepository::class);
+        $replays = $replayRepository->getLiveReplaysForProjector($this->getName());
+        collect($replays)->each(function (Replay $replay) use ($storedEvent) {
+            self::handleOnConnection($replay->key, $storedEvent);
+        });
+    }
+
+    public static function handleOnConnection(string $connection, StoredEvent $storedEvent)
+    {
+        $projector = resolve(get_called_class());
+        $projector->useConnection($connection);
+        $projector->handleEvent($storedEvent);
     }
 
     private function configureConnections(): void

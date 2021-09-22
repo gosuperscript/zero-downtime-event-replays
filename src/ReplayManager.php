@@ -56,7 +56,7 @@ class ReplayManager
 //        $replay->addProjectors($projectors);
     }
 
-    public function startReplay(string $key, int $fromEventId = 0)
+    public function startReplay(string $key, callable $onEventReplayed = null)
     {
         $replay = $this->replayRepository->getReplayByKey($key);
         if (! $replay->readyToStart()) {
@@ -68,26 +68,30 @@ class ReplayManager
             $zeroDowntimeProjector->useConnection($key);
         });
 
-        $onEventReplayed = function (StoredEvent $storedEvent) use (&$replay) {
+        $onEventReplayed = function (StoredEvent $storedEvent) use (&$replay, $onEventReplayed) {
             $replay->setLastProjectedEventNumber($storedEvent->id);
             // only persist once every 50 events, to save repo calls
             if (($storedEvent->id % 50) == 0) {
                 $this->replayRepository->persist($replay);
             }
+
+            if ($onEventReplayed) {
+                $onEventReplayed($storedEvent);
+            }
         };
 
+        $fromEventId = $replay->lastProjectedEvent === 0 ? 0 : $replay->lastProjectedEvent + 1;
         $replay->started($fromEventId);
+        $this->replayRepository->persist($replay);
 
         try {
-            $this->replayRepository->persist($replay);
+            $this->projectionist->replay($projectors, $fromEventId, $onEventReplayed);
         } catch (\Exception $e) {
             // Persist so we always have the latest replayed event ID even on failure
+            $replay->finished();
             $this->replayRepository->persist($replay);
-
             throw $e;
         }
-
-        $this->projectionist->replay($projectors, $fromEventId, $onEventReplayed);
 
         $replay->finished();
         $this->replayRepository->persist($replay);
@@ -100,7 +104,7 @@ class ReplayManager
             throw new \Exception("Replay not found");
         }
 
-        return $this->storedEventRepository->countAllStartingFrom($replay->lastProjectedEvent);
+        return $this->storedEventRepository->countAllStartingFrom($replay->lastProjectedEvent + 1);
     }
 
     public function getReplay(string $key): ?Replay
@@ -121,9 +125,25 @@ class ReplayManager
 
     public function putReplayLive(string $key)
     {
+        $replay = $this->replayRepository->getReplayByKey($key);
+
+        collect($replay->projectors)->map(function (string $projectorName) {
+            return $this->projectionist->getProjector($projectorName);
+        })->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
+            $zeroDowntimeProjector->useConnection($key);
+            $zeroDowntimeProjector->promoteConnectionToProduction();
+        });
     }
 
     public function removeReplay(string $key) : void
     {
+        $this->replayRepository->delete($key);
+    }
+
+    public function resetReplay(string $key)
+    {
+        $replay = $this->getReplay($key);
+        $replay->lastProjectedEvent = 0;
+        $this->replayRepository->persist($replay);
     }
 }

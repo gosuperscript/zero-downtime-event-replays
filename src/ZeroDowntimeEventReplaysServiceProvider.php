@@ -2,7 +2,9 @@
 
 namespace Mannum\ZeroDowntimeEventReplays;
 
-use Mannum\ZeroDowntimeEventReplays\Commands\ZeroDowntimeEventReplaysCommand;
+use Mannum\ZeroDowntimeEventReplays\Commands\EnableLiveProjection;
+use Mannum\ZeroDowntimeEventReplays\Commands\ReplayCommand;
+use Mannum\ZeroDowntimeEventReplays\Commands\ReplayManagerCommand;
 use Mannum\ZeroDowntimeEventReplays\Repositories\RedisReplayRepository;
 use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Spatie\LaravelPackageTools\Package;
@@ -17,7 +19,11 @@ class ZeroDowntimeEventReplaysServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_zero-downtime-event-replays_table')
-            ->hasCommand(ZeroDowntimeEventReplaysCommand::class);
+            ->hasCommands(
+                ReplayManagerCommand::class,
+                ReplayCommand::class,
+                EnableLiveProjection::class
+            );
     }
 
     public function register()
