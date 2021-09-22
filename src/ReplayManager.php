@@ -135,7 +135,7 @@ class ReplayManager
         });
     }
 
-    public function removeReplay(string $key) : void
+    public function removeReplay(string $key): void
     {
         $this->replayRepository->delete($key);
     }
