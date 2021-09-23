@@ -15,8 +15,9 @@ class DeleteReplay extends Command
     {
         $key = $this->argument('key');
 
-        if(!$this->option('force') && !$this->confirm("Are you sure you want to delete the replay?")){
+        if (! $this->option('force') && ! $this->confirm("Are you sure you want to delete the replay?")) {
             $this->warn("Aborted");
+
             return;
         }
         $replayManager->removeReplay($key);
