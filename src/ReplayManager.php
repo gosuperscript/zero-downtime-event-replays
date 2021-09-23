@@ -46,14 +46,6 @@ class ReplayManager
         }
 
         $this->replayRepository->persist($replay);
-//
-//        $projectors->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
-//            $zeroDowntimeProjector->useConnection($key);
-//        });
-
-//        $this->projectionist->replay($projectors);
-//        $replay = new Replay($key);
-//        $replay->addProjectors($projectors);
     }
 
     public function startReplay(string $key, callable $onEventReplayed = null)
@@ -65,7 +57,7 @@ class ReplayManager
         $projectors = collect($replay->projectors)->map(function (string $projectorName) {
             return $this->projectionist->getProjector($projectorName);
         })->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
-            $zeroDowntimeProjector->useConnection($key);
+            $zeroDowntimeProjector->forReplay()->useConnection($key);
         });
 
         $onEventReplayed = function (StoredEvent $storedEvent) use (&$replay, $onEventReplayed) {
@@ -138,6 +130,13 @@ class ReplayManager
 
     public function removeReplay(string $key): void
     {
+        $replay = $this->replayRepository->getReplayByKey($key);
+        collect($replay->projectors)->map(function (string $projectorName) {
+            return $this->projectionist->getProjector($projectorName);
+        })->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
+            $zeroDowntimeProjector->useConnection($key)->removeConnection();
+        });
+
         $this->replayRepository->delete($key);
     }
 

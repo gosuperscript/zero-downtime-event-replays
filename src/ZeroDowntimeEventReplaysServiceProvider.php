@@ -2,6 +2,8 @@
 
 namespace Mannum\ZeroDowntimeEventReplays;
 
+use Mannum\ZeroDowntimeEventReplays\Commands\CreateReplay;
+use Mannum\ZeroDowntimeEventReplays\Commands\DeleteReplay;
 use Mannum\ZeroDowntimeEventReplays\Commands\EnableLiveProjection;
 use Mannum\ZeroDowntimeEventReplays\Commands\ReplayCommand;
 use Mannum\ZeroDowntimeEventReplays\Commands\ReplayManagerCommand;
@@ -21,6 +23,8 @@ class ZeroDowntimeEventReplaysServiceProvider extends PackageServiceProvider
             ->hasMigration('create_zero-downtime-event-replays_table')
             ->hasCommands(
                 ReplayManagerCommand::class,
+                CreateReplay::class,
+                DeleteReplay::class,
                 ReplayCommand::class,
                 EnableLiveProjection::class
             );

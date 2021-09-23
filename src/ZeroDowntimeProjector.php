@@ -4,7 +4,11 @@ namespace Mannum\ZeroDowntimeEventReplays;
 
 interface ZeroDowntimeProjector
 {
-    public function useConnection(string $connection): void;
+    public function forReplay(): self;
+
+    public function useConnection(string $connection): self;
 
     public function promoteConnectionToProduction(): void;
+
+    public function removeConnection();
 }

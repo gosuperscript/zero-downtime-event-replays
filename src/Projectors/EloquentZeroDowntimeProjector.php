@@ -20,12 +20,21 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
 
     protected ?string $connection = null;
 
+    private bool $isReplay = false;
+
     abstract public function models(): array;
 
-    public function useConnection(string $connection): void
+    public function forReplay(): ZeroDowntimeProjector
+    {
+        $this->isReplay = true;
+        return $this;
+    }
+
+    public function useConnection(string $connection) : self
     {
         $this->connection = $connection;
         $this->configureConnections();
+        return $this;
     }
 
     public function promoteConnectionToProduction(): void
@@ -36,24 +45,34 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
             }
             $ghostConnectionTable = config('database.connections.' . $this->getGhostConnectionForModel($model) . '.prefix') . $model->getTable();
 
-//            ALTER TABLE vendors RENAME TO suppliers;
-//            DB::connection($model->getConnectionName())->statement("RENAME TABLE {$model->getTable()} TO {$ghostConnectionTable}_old_prod;");
-
             DB::connection($model->getConnectionName())->statement("ALTER TABLE {$model->getTable()} RENAME TO {$ghostConnectionTable}_old_prod;");
             DB::connection($model->getConnectionName())->statement("ALTER TABLE {$ghostConnectionTable} RENAME TO {$model->getTable()};");
             DB::connection($model->getConnectionName())->statement("ALTER TABLE {$ghostConnectionTable}_old_prod RENAME TO {$ghostConnectionTable};");
         }
     }
 
+    public function removeConnection(): void
+    {
+        foreach ($this->models() as $model) {
+            if (! $model instanceof Model) {
+                throw new Exception("models in the models method should extend eloquents model class");
+            }
+            $ghostConnectionTable = config('database.connections.' . $this->getGhostConnectionForModel($model) . '.prefix') . $model->getTable();
+            DB::connection($model->getConnectionName())->statement("DROP TABLE IF EXISTS {$ghostConnectionTable}");
+        }
+    }
+
     public function handle(StoredEvent $storedEvent)
     {
         $this->handleEvent($storedEvent);
-        // project to live parallel projectors
-        $replayRepository = resolve(ReplayRepository::class);
-        $replays = $replayRepository->getLiveReplaysForProjector($this->getName());
-        collect($replays)->each(function (Replay $replay) use ($storedEvent) {
-            self::handleOnConnection($replay->key, $storedEvent);
-        });
+        if(!$this->isReplay){
+            // project to live parallel projectors
+            $replayRepository = resolve(ReplayRepository::class);
+            $replays = $replayRepository->getLiveReplaysForProjector($this->getName());
+            collect($replays)->each(function (Replay $replay) use ($storedEvent) {
+                self::handleOnConnection($replay->key, $storedEvent);
+            });
+        }
     }
 
     public static function handleOnConnection(string $connection, StoredEvent $storedEvent)
