@@ -21,9 +21,9 @@ class CreateReplay extends Command
         $key = $this->argument('key') ?? $this->ask('Unique replay key?');
 
         $projectors = count($this->argument('projector')) !== 0 ? $this->argument('projector') : $this->askForProjectors();
-        if(count($projectors) !== 0){
+        if (count($projectors) !== 0) {
             $projectors = $this->parseProjectors($projectors);
-            if(!$projectors){
+            if (! $projectors) {
                 return;
             }
         }
@@ -43,6 +43,7 @@ class CreateReplay extends Command
                 if (! $projector = $this->projectionist->getProjector($projectorName)) {
                     throw new Exception("Projector {$projectorName} not found. Did you register it?");
                 }
+
                 return $projector;
             });
 
@@ -50,6 +51,7 @@ class CreateReplay extends Command
             if (! $projector instanceof ZeroDowntimeProjector) {
                 $class = get_class($projector);
                 $this->warn("Projector {$class} is not implementing the ZeroDowntimeProjector interface and therefore cant be used in zero downtime replays");
+
                 return null;
             }
         }
@@ -72,6 +74,5 @@ class CreateReplay extends Command
             attempts: null,
             multiple: true
         );
-
     }
 }

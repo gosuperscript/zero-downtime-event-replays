@@ -27,13 +27,15 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
     public function forReplay(): ZeroDowntimeProjector
     {
         $this->isReplay = true;
+
         return $this;
     }
 
-    public function useConnection(string $connection) : self
+    public function useConnection(string $connection): self
     {
         $this->connection = $connection;
         $this->configureConnections();
+
         return $this;
     }
 
@@ -65,7 +67,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
     public function handle(StoredEvent $storedEvent)
     {
         $this->handleEvent($storedEvent);
-        if(!$this->isReplay){
+        if (! $this->isReplay) {
             // project to live parallel projectors
             $replayRepository = resolve(ReplayRepository::class);
             $replays = $replayRepository->getLiveReplaysForProjector($this->getName());
