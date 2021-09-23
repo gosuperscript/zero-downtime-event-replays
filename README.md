@@ -1,9 +1,12 @@
 # Zero downtime event replay for Spatie's Laravel event sourcing package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/mannum/zero-downtime-event-replays.svg?style=flat-square)](https://packagist.org/packages/mannum/zero-downtime-event-replays)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/mannum/zero-downtime-event-replays/run-tests?label=tests)](https://github.com/mannum/zero-downtime-event-replays/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/mannum/zero-downtime-event-replays/Check%20&%20fix%20styling?label=code%20style)](https://github.com/mannum/zero-downtime-event-replays/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/mannum/zero-downtime-event-replays.svg?style=flat-square)](https://packagist.org/packages/mannum/zero-downtime-event-replays)
+[comment]: <> ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/mannum/zero-downtime-event-replays.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/mannum/zero-downtime-event-replays&#41;)
+
+[comment]: <> ([![GitHub Tests Action Status]&#40;https://img.shields.io/github/workflow/status/mannum/zero-downtime-event-replays/run-tests?label=tests&#41;]&#40;https://github.com/mannum/zero-downtime-event-replays/actions?query=workflow%3Arun-tests+branch%3Amain&#41;)
+
+[comment]: <> ([![GitHub Code Style Action Status]&#40;https://img.shields.io/github/workflow/status/mannum/zero-downtime-event-replays/Check%20&%20fix%20styling?label=code%20style&#41;]&#40;https://github.com/mannum/zero-downtime-event-replays/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain&#41;)
+
+[comment]: <> ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/mannum/zero-downtime-event-replays.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/mannum/zero-downtime-event-replays&#41;)
 
 ---
 
