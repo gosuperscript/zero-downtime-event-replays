@@ -5,8 +5,8 @@ namespace Mannum\ZeroDowntimeEventReplays\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Mannum\ZeroDowntimeEventReplays\ReplayManager;
 use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
+use Mannum\ZeroDowntimeEventReplays\ReplayManager;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\Projectionist;
 

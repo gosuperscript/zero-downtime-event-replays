@@ -11,7 +11,7 @@ class FakeProjector extends Projector implements ZeroDowntimeProjector
     public bool $promoted = false;
     private bool $removed = false;
 
-    public function hasBeenPutLive() : bool
+    public function hasBeenPutLive(): bool
     {
         return $this->promoted;
     }
@@ -29,6 +29,7 @@ class FakeProjector extends Projector implements ZeroDowntimeProjector
     public function useConnection(string $connection): ZeroDowntimeProjector
     {
         $this->connection = $connection;
+
         return $this;
     }
 
@@ -41,6 +42,4 @@ class FakeProjector extends Projector implements ZeroDowntimeProjector
     {
         $this->removed = true;
     }
-
-
 }
