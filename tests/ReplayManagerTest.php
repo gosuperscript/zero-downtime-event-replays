@@ -145,8 +145,7 @@ class ReplayManagerTest extends TestCase
 
         try {
             $manager->startProjectingToReplay('foo');
-        } catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
             $thrown = true;
         }
 
