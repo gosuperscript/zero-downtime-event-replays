@@ -18,4 +18,14 @@ class InMemoryReplayRepository implements ReplayRepository
     {
         $this->replays[$replay->key] = $replay;
     }
+
+    public function getLiveReplaysForProjector(string $class): array
+    {
+        return [];
+    }
+
+    public function delete(string $key): void
+    {
+        unset($this->replays[$key]);
+    }
 }

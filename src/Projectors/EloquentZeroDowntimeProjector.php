@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Mannum\ZeroDowntimeEventReplays\Replay;
 use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
-use Mannum\ZeroDowntimeEventReplays\ZeroDowntimeProjector;
 use Spatie\EventSourcing\EventHandlers\HandlesEvents;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\StoredEvents\StoredEvent;

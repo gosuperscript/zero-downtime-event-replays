@@ -3,7 +3,7 @@
 namespace Mannum\ZeroDowntimeEventReplays\Commands;
 
 use Illuminate\Support\Collection;
-use Mannum\ZeroDowntimeEventReplays\ZeroDowntimeProjector;
+use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
 use Spatie\EventSourcing\Console\ReplayCommand;
 use Spatie\EventSourcing\Projectionist;
 use Spatie\EventSourcing\StoredEvents\Repositories\StoredEventRepository;

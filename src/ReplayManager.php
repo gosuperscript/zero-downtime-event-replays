@@ -3,6 +3,7 @@
 namespace Mannum\ZeroDowntimeEventReplays;
 
 use Mannum\ZeroDowntimeEventReplays\Exceptions\CreateReplayException;
+use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
 use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Spatie\EventSourcing\Projectionist;
 use Spatie\EventSourcing\StoredEvents\Repositories\StoredEventRepository;

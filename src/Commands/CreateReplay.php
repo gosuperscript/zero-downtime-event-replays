@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Mannum\ZeroDowntimeEventReplays\ReplayManager;
-use Mannum\ZeroDowntimeEventReplays\ZeroDowntimeProjector;
+use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\Projectionist;
 
