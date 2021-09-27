@@ -1,6 +1,6 @@
 <?php
 
-namespace Gosuperscript\ZeroDowntimeEventReplays\Tests;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Repositories;
 
 use Gosuperscript\ZeroDowntimeEventReplays\Replay;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;

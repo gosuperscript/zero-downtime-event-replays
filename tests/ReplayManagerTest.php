@@ -4,6 +4,7 @@ namespace Gosuperscript\ZeroDowntimeEventReplays\Tests;
 
 use Gosuperscript\ZeroDowntimeEventReplays\Exceptions\CreateReplayException;
 use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
+use Gosuperscript\ZeroDowntimeEventReplays\Repositories\InMemoryReplayRepository;
 use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeProjectionist;
 use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeProjector;
 use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeStoredEventRepository;
