@@ -3,10 +3,10 @@
 namespace Gosuperscript\ZeroDowntimeEventReplays\Commands;
 
 use Exception;
-use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Gosuperscript\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
 use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
+use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\Projectionist;
 

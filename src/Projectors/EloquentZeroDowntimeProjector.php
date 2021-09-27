@@ -3,10 +3,10 @@
 namespace Gosuperscript\ZeroDowntimeEventReplays\Projectors;
 
 use Exception;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Gosuperscript\ZeroDowntimeEventReplays\Replay;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\EventSourcing\EventHandlers\HandlesEvents;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\StoredEvents\StoredEvent;
@@ -92,7 +92,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
             $defaultConnection = $model->getConnectionName() ?? config('database.default');
             $ghostConnection = $this->getGhostConnectionForModel($model);
 
-            if (!array_key_exists($ghostConnection, config('database.connections'))) {
+            if (! array_key_exists($ghostConnection, config('database.connections'))) {
                 $connectionClone = config('database.connections.' . $defaultConnection);
                 $connectionClone['prefix'] = 'replay_' . $this->connection . '_' . $connectionClone['prefix'];
 

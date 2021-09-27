@@ -2,8 +2,8 @@
 
 namespace Gosuperscript\ZeroDowntimeEventReplays\Commands;
 
-use Illuminate\Console\Command;
 use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
+use Illuminate\Console\Command;
 
 class EnableLiveProjection extends Command
 {

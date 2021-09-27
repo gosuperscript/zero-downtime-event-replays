@@ -3,7 +3,6 @@
 namespace Gosuperscript\ZeroDowntimeEventReplays\Repositories;
 
 use Gosuperscript\ZeroDowntimeEventReplays\Replay;
-use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 
 class InMemoryReplayRepository implements ReplayRepository
 {

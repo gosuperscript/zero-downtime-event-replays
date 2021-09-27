@@ -2,9 +2,9 @@
 
 namespace Gosuperscript\ZeroDowntimeEventReplays\Repositories;
 
-use Illuminate\Support\Facades\Redis;
 use Gosuperscript\ZeroDowntimeEventReplays\Replay;
 use Gosuperscript\ZeroDowntimeEventReplays\ReplaySerializer;
+use Illuminate\Support\Facades\Redis;
 
 class RedisReplayRepository implements ReplayRepository
 {
