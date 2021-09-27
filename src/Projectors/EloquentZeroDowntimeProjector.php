@@ -91,20 +91,25 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
             }
             $defaultConnection = $model->getConnectionName() ?? config('database.default');
             $ghostConnection = $this->getGhostConnectionForModel($model);
-            if (array_key_exists($ghostConnection, config('database.connections'))) {
-                return;
+
+            if (!array_key_exists($ghostConnection, config('database.connections'))) {
+                $connectionClone = config('database.connections.' . $defaultConnection);
+                $connectionClone['prefix'] = 'replay_' . $this->connection . '_' . $connectionClone['prefix'];
+
+                config(['database.connections.' . $ghostConnection => $connectionClone]);
             }
 
-            $connectionClone = config('database.connections.' . $defaultConnection);
-            $connectionClone['prefix'] = 'replay_' . $this->connection . '_' . $connectionClone['prefix'];
-
-            config(['database.connections.' . $ghostConnection => $connectionClone]);
-
-            $newTable = $connectionClone['prefix'] . $model->getTable();
-
-            //  todo: Deal with postgres auto increments
-            DB::connection($model->getConnectionName())->statement("CREATE TABLE IF NOT EXISTS {$newTable} (LIKE {$model->getTable()} INCLUDING ALL);");
+            $this->createTableForModel($model);
         }
+    }
+
+    private function createTableForModel(Model $model)
+    {
+        $ghostConnection = $this->getGhostConnectionForModel($model);
+        $ghostConnectionPrefix = config('database.connections.' . $ghostConnection . '.prefix');
+        $newTable = $ghostConnectionPrefix . $model->getTable();
+        //  todo: Deal with postgres auto increments
+        DB::connection($model->getConnectionName())->statement("CREATE TABLE IF NOT EXISTS {$newTable} (LIKE {$model->getTable()} INCLUDING ALL);");
     }
 
     public function getGhostConnectionForModel(Model $model): string
