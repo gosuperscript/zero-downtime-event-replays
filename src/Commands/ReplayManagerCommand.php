@@ -2,8 +2,8 @@
 
 namespace Gosuperscript\ZeroDowntimeEventReplays\Commands;
 
-use Illuminate\Console\Command;
 use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -2,8 +2,8 @@
 
 namespace Gosuperscript\ZeroDowntimeEventReplays\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Gosuperscript\ZeroDowntimeEventReplays\ZeroDowntimeEventReplaysServiceProvider;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

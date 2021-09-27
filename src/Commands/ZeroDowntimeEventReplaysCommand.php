@@ -2,8 +2,8 @@
 
 namespace Gosuperscript\ZeroDowntimeEventReplays\Commands;
 
-use Illuminate\Support\Collection;
 use Gosuperscript\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
+use Illuminate\Support\Collection;
 use Spatie\EventSourcing\Console\ReplayCommand;
 use Spatie\EventSourcing\Projectionist;
 use Spatie\EventSourcing\StoredEvents\Repositories\StoredEventRepository;
