@@ -10,14 +10,56 @@
 
 ---
 
-Migration:
-1. run replay on clone read models, store id of latest processed event 
-   1. For this, pass a replay_prefix to projector
-   2. Before start of replay, prepare replay environment method should be called on projector
-2. Once replay is finished, run replay again, to add newly created events
-   1. Repeat until replay copy is (almost) up-to-date
-3. Projections should now be written to both replays
-4. switch over
+Usually you have to deal with a few problems that might cause downtime when replaying events. 
+Your read models will be truncated at the beginning of a replay, and won't have the correct data until the replay has finished.
+Besides that, you'd have to wait with projecting newly recorded events until the replay has finished, to protect the replay order. 
+
+This package solves both problems, allowing a replay to happen to a copy of your read models. 
+Once the replay is up to speed, newly recorded events will be played to both projections, so that your copy is kept up to date with the live read model. 
+After verifying that the new replay is correct, the package enabled to promote your replay to live. Resulting in a (near) zero downtime release. 
+
+Usually running a new reply will look like this:
+1. Create a new replay, ang give it key to identify it. For example "add_extra_field_to_balance_projection". You also specify the projectors you want to play to in this step.
+
+```php
+$manager = resolve(\Gosuperscript\ZeroDowntimeEventReplays\ReplayManager::class);
+// Create a replay
+$manager->createReplay('add_extra_field_to_balance_projection', [
+    "App\Projectors\BalanceProjector"
+]);
+``` 
+
+2. The replay can be started. When replaying, it calls the `useConnection` method on the projector. So the projector knows where it should write its data to.
+This package comes with an EloquentZeroDowntimeProjector that gives you some magic for dealing with different connections.
+```php
+$manager->startReplay('add_extra_field_to_balance_projection');
+```
+
+3. Once the replay is finished, but there is still some lag to production because of newly recorded events. 
+You can start the replay again, it will start from the latest projected event. Its always possible to monitor the state of the replay and the lag compared to production.
+```php
+// get the state & progress of your replay 
+$manager->getReplay('add_extra_field_to_balance_projection');
+
+// how many events is the replay behind the event stream?
+$manager->getReplayLag('add_extra_field_to_balance_projection');
+```
+
+4. Once there is no lag, we can start projecting new events to replays.
+
+```php
+$manager->startProjectingToReplay('add_extra_field_to_balance_projection');
+```
+
+5. Once every thing checks out, you can promote your replay to production.
+```php
+    $manager->putReplayLive('add_extra_field_to_balance_projection');
+```
+
+6. Lastly you can cleanup your replay
+```php
+    $manager->removeReplay('add_extra_field_to_balance_projection');
+```
 
 ## Installation
 
@@ -60,7 +102,7 @@ composer require gosuperscript/zero-downtime-event-replays
 ```php
 $manager = resolve(\Gosuperscript\ZeroDowntimeEventReplays\ReplayManager::class);
 // Create a replay
-$manager->createReplay('your_replay_key');
+$manager->createReplay('your_replay_key', ['projectorA', 'projectorB']);
 
 // Start replay history
 $manager->startReplay('your_replay_key');
@@ -81,6 +123,58 @@ $manager->putReplayLive('your_replay_key');
 $manager->removeReplay('your_replay_key');
 
 ```
+
+## ZeroDowntime projectors
+In order to make projectors work with zero downtime replays, they have to implement the `ZeroDowntimeProjector` interface. This interface asks you to implement the following methods: 
+```php 
+interface ZeroDowntimeProjector
+{
+    // This method lets the projector know that its replaying on a replay
+    public function forReplay(): self;
+
+    // Sets the connection to replay to, using the replay key. Each connection must be treated as a clone of the production schema.
+    public function useConnection(string $connection): self;
+
+    // Promote your connection to production
+    public function promoteConnectionToProduction(): void;
+
+    // cleanup/remove connection
+    public function removeConnection();
+}
+```
+
+Since most projections probably are replaying to eloquent, this package includes a `EloquentZeroDowntimeProjector` abstract class and a `Projectable` trait to be used on your eloquent read models. 
+
+To make your projectors work with this package: 
+1. Make sure your projector extends the `EloquentZeroDowntimeProjector`. 
+2. On all read models used by the projector, add the `Projectable` trait. 
+3. Implement a `models` method on your projector, that returns all models that the projector writes to. This is used by the EloquentZeroDowntimeProjector in order to setup the right db scheme and promote the right models to production.  
+```php 
+    public function models(): array
+    {
+        return [
+            new BalanceProjector(),
+        ];
+    }
+```
+4. Everywhere where you query or update your read model, use the `forProjection` method. 
+```php
+    // when truncating
+    Balance::forProjection($this->connection)->truncate();
+    
+    // when querying
+    Balance::forProjection($this->connection)->where('user_id', $event->user_id)->first();
+    
+    // when updating
+    Balance::forProjection($this->connection)->where('user_id', $event->user_id)->increment('total', $event->amount);
+    
+    // when newing an instance
+    $balance = Balance::newForProjection($this->connection, ['id' => $event->user_id, 'total' => $event->amount]);
+    $balance->save();
+```
+
+
+
 
 ## Testing
 
