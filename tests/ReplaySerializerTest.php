@@ -1,10 +1,10 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Tests;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Tests;
 
 use Carbon\Carbon;
-use Mannum\ZeroDowntimeEventReplays\Replay;
-use Mannum\ZeroDowntimeEventReplays\ReplaySerializer;
+use Gosuperscript\ZeroDowntimeEventReplays\Replay;
+use Gosuperscript\ZeroDowntimeEventReplays\ReplaySerializer;
 
 class ReplaySerializerTest extends TestCase
 {

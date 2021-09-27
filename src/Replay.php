@@ -1,6 +1,6 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays;
+namespace Gosuperscript\ZeroDowntimeEventReplays;
 
 use Carbon\CarbonInterface;
 use Ramsey\Uuid\Uuid;

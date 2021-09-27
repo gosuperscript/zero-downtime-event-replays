@@ -1,6 +1,6 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Exceptions;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Exceptions;
 
 class CreateReplayException extends \Exception
 {

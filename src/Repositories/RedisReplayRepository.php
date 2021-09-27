@@ -1,10 +1,10 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Repositories;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Repositories;
 
 use Illuminate\Support\Facades\Redis;
-use Mannum\ZeroDowntimeEventReplays\Replay;
-use Mannum\ZeroDowntimeEventReplays\ReplaySerializer;
+use Gosuperscript\ZeroDowntimeEventReplays\Replay;
+use Gosuperscript\ZeroDowntimeEventReplays\ReplaySerializer;
 
 class RedisReplayRepository implements ReplayRepository
 {

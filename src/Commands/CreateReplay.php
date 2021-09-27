@@ -1,12 +1,12 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Commands;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
-use Mannum\ZeroDowntimeEventReplays\ReplayManager;
+use Gosuperscript\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
+use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\Projectionist;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Repositories;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Repositories;
 
-use Mannum\ZeroDowntimeEventReplays\Replay;
+use Gosuperscript\ZeroDowntimeEventReplays\Replay;
 
 interface ReplayRepository
 {

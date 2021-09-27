@@ -1,12 +1,12 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Tests;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Tests;
 
-use Mannum\ZeroDowntimeEventReplays\Exceptions\CreateReplayException;
-use Mannum\ZeroDowntimeEventReplays\ReplayManager;
-use Mannum\ZeroDowntimeEventReplays\Tests\Fakes\FakeProjectionist;
-use Mannum\ZeroDowntimeEventReplays\Tests\Fakes\FakeProjector;
-use Mannum\ZeroDowntimeEventReplays\Tests\Fakes\FakeStoredEventRepository;
+use Gosuperscript\ZeroDowntimeEventReplays\Exceptions\CreateReplayException;
+use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
+use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeProjectionist;
+use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeProjector;
+use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeStoredEventRepository;
 
 class ReplayManagerTest extends TestCase
 {

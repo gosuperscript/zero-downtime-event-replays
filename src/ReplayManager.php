@@ -1,10 +1,10 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays;
+namespace Gosuperscript\ZeroDowntimeEventReplays;
 
-use Mannum\ZeroDowntimeEventReplays\Exceptions\CreateReplayException;
-use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
-use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
+use Gosuperscript\ZeroDowntimeEventReplays\Exceptions\CreateReplayException;
+use Gosuperscript\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
+use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Spatie\EventSourcing\Projectionist;
 use Spatie\EventSourcing\StoredEvents\Repositories\StoredEventRepository;
 use Spatie\EventSourcing\StoredEvents\StoredEvent;

@@ -1,12 +1,12 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Projectors;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Projectors;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Mannum\ZeroDowntimeEventReplays\Replay;
-use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
+use Gosuperscript\ZeroDowntimeEventReplays\Replay;
+use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Spatie\EventSourcing\EventHandlers\HandlesEvents;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use Spatie\EventSourcing\StoredEvents\StoredEvent;

@@ -1,5 +1,5 @@
 <?php
-// config for Mannum/ZeroDowntimeEventReplays
+// config for Gosuperscript/ZeroDowntimeEventReplays
 return [
 
 ];

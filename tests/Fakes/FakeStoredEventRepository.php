@@ -1,6 +1,6 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Tests\Fakes;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes;
 
 use Illuminate\Support\LazyCollection;
 use Spatie\EventSourcing\StoredEvents\Repositories\StoredEventRepository;

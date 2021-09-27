@@ -1,9 +1,9 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Commands;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Commands;
 
 use Illuminate\Console\Command;
-use Mannum\ZeroDowntimeEventReplays\ReplayManager;
+use Gosuperscript\ZeroDowntimeEventReplays\ReplayManager;
 use Spatie\EventSourcing\StoredEvents\StoredEvent;
 
 class ReplayCommand extends Command

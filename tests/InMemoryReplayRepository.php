@@ -1,9 +1,9 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Tests;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Tests;
 
-use Mannum\ZeroDowntimeEventReplays\Replay;
-use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
+use Gosuperscript\ZeroDowntimeEventReplays\Replay;
+use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 
 class InMemoryReplayRepository implements ReplayRepository
 {

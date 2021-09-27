@@ -1,6 +1,6 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Projectors;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Projectors;
 
 interface ZeroDowntimeProjector
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Tests\Fakes;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes;
 
 use Illuminate\Support\Collection;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;

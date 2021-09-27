@@ -1,8 +1,8 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays\Tests\Fakes;
+namespace Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes;
 
-use Mannum\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
+use Gosuperscript\ZeroDowntimeEventReplays\Projectors\ZeroDowntimeProjector;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class FakeProjector extends Projector implements ZeroDowntimeProjector

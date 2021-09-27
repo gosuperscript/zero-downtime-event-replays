@@ -1,12 +1,13 @@
 {
-    "name": "mannum/zero-downtime-event-replays",
+    "name": "gosuperscript/zero-downtime-event-replays",
     "description": "Zero downtime event replay for Spatie's Laravel event sourcing package",
     "keywords": [
-        "mannum",
+        "gosuperscript",
         "laravel",
-        "zero-downtime-event-replays"
+        "zero-downtime-event-replays",
+        "event-sourcing"
     ],
-    "homepage": "https://github.com/mannum/zero-downtime-event-replays",
+    "homepage": "https://github.com/gosuperscript/zero-downtime-event-replays",
     "license": "MIT",
     "authors": [
         {
@@ -28,13 +29,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Mannum\\ZeroDowntimeEventReplays\\": "src",
-            "Mannum\\ZeroDowntimeEventReplays\\Database\\Factories\\": "database/factories"
+            "Gosuperscript\\ZeroDowntimeEventReplays\\": "src",
+            "Gosuperscript\\ZeroDowntimeEventReplays\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mannum\\ZeroDowntimeEventReplays\\Tests\\": "tests"
+            "Gosuperscript\\ZeroDowntimeEventReplays\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,10 +48,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mannum\\ZeroDowntimeEventReplays\\ZeroDowntimeEventReplaysServiceProvider"
+                "Gosuperscript\\ZeroDowntimeEventReplays\\ZeroDowntimeEventReplaysServiceProvider"
             ],
             "aliases": {
-                "ZeroDowntimeEventReplays": "Mannum\\ZeroDowntimeEventReplays\\ZeroDowntimeEventReplaysFacade"
+                "ZeroDowntimeEventReplays": "Gosuperscript\\ZeroDowntimeEventReplays\\ZeroDowntimeEventReplaysFacade"
             }
         }
     },

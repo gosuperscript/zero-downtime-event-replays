@@ -1,19 +1,19 @@
 # Zero downtime event replay for Spatie's Laravel event sourcing package
 
-[comment]: <> ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/mannum/zero-downtime-event-replays.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/mannum/zero-downtime-event-replays&#41;)
+[comment]: <> ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/gosuperscript/zero-downtime-event-replays.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/gosuperscript/zero-downtime-event-replays&#41;)
 
-[comment]: <> ([![GitHub Tests Action Status]&#40;https://img.shields.io/github/workflow/status/mannum/zero-downtime-event-replays/run-tests?label=tests&#41;]&#40;https://github.com/mannum/zero-downtime-event-replays/actions?query=workflow%3Arun-tests+branch%3Amain&#41;)
+[comment]: <> ([![GitHub Tests Action Status]&#40;https://img.shields.io/github/workflow/status/gosuperscript/zero-downtime-event-replays/run-tests?label=tests&#41;]&#40;https://github.com/gosuperscript/zero-downtime-event-replays/actions?query=workflow%3Arun-tests+branch%3Amain&#41;)
 
-[comment]: <> ([![GitHub Code Style Action Status]&#40;https://img.shields.io/github/workflow/status/mannum/zero-downtime-event-replays/Check%20&%20fix%20styling?label=code%20style&#41;]&#40;https://github.com/mannum/zero-downtime-event-replays/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain&#41;)
+[comment]: <> ([![GitHub Code Style Action Status]&#40;https://img.shields.io/github/workflow/status/gosuperscript/zero-downtime-event-replays/Check%20&%20fix%20styling?label=code%20style&#41;]&#40;https://github.com/gosuperscript/zero-downtime-event-replays/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain&#41;)
 
-[comment]: <> ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/mannum/zero-downtime-event-replays.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/mannum/zero-downtime-event-replays&#41;)
+[comment]: <> ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/gosuperscript/zero-downtime-event-replays.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/gosuperscript/zero-downtime-event-replays&#41;)
 
 ---
 
 Migration:
 1. run replay on clone read models, store id of latest processed event 
    1. For this, pass a replay_prefix to projector
-   2. Before start of replay, a perepare replay environment method should be called on projector
+   2. Before start of replay, prepare replay environment method should be called on projector
 2. Once replay is finished, run replay again, to add newly created events
    1. Repeat until replay copy is (almost) up-to-date
 3. Projections should now be written to both replays
@@ -24,14 +24,14 @@ Migration:
 You can install the package via composer:
 
 ```bash
-composer require mannum/zero-downtime-event-replays
+composer require gosuperscript/zero-downtime-event-replays
 ```
 
 [comment]: <> (You can publish and run the migrations with:)
 
 [comment]: <> (```bash)
 
-[comment]: <> (php artisan vendor:publish --provider="Mannum\ZeroDowntimeEventReplays\ZeroDowntimeEventReplaysServiceProvider" --tag="zero-downtime-event-replays-migrations")
+[comment]: <> (php artisan vendor:publish --provider="Gosuperscript\ZeroDowntimeEventReplays\ZeroDowntimeEventReplaysServiceProvider" --tag="zero-downtime-event-replays-migrations")
 
 [comment]: <> (php artisan migrate)
 
@@ -41,7 +41,7 @@ composer require mannum/zero-downtime-event-replays
 
 [comment]: <> (```bash)
 
-[comment]: <> (php artisan vendor:publish --provider="Mannum\ZeroDowntimeEventReplays\ZeroDowntimeEventReplaysServiceProvider" --tag="zero-downtime-event-replays-config")
+[comment]: <> (php artisan vendor:publish --provider="Gosuperscript\ZeroDowntimeEventReplays\ZeroDowntimeEventReplaysServiceProvider" --tag="zero-downtime-event-replays-config")
 
 [comment]: <> (```)
 
@@ -58,7 +58,7 @@ composer require mannum/zero-downtime-event-replays
 ## Usage
 
 ```php
-$manager = resolve(\Mannum\ZeroDowntimeEventReplays\ReplayManager::class);
+$manager = resolve(\Gosuperscript\ZeroDowntimeEventReplays\ReplayManager::class);
 // Create a replay
 $manager->createReplay('your_replay_key');
 
@@ -102,7 +102,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Robertbaelde](https://github.com/mannum)
+- [Robertbaelde](https://github.com/robertbaelde)
 - [All Contributors](../../contributors)
 
 ## License

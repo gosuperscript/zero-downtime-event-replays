@@ -1,14 +1,14 @@
 <?php
 
-namespace Mannum\ZeroDowntimeEventReplays;
+namespace Gosuperscript\ZeroDowntimeEventReplays;
 
-use Mannum\ZeroDowntimeEventReplays\Commands\CreateReplay;
-use Mannum\ZeroDowntimeEventReplays\Commands\DeleteReplay;
-use Mannum\ZeroDowntimeEventReplays\Commands\EnableLiveProjection;
-use Mannum\ZeroDowntimeEventReplays\Commands\ReplayCommand;
-use Mannum\ZeroDowntimeEventReplays\Commands\ReplayManagerCommand;
-use Mannum\ZeroDowntimeEventReplays\Repositories\RedisReplayRepository;
-use Mannum\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
+use Gosuperscript\ZeroDowntimeEventReplays\Commands\CreateReplay;
+use Gosuperscript\ZeroDowntimeEventReplays\Commands\DeleteReplay;
+use Gosuperscript\ZeroDowntimeEventReplays\Commands\EnableLiveProjection;
+use Gosuperscript\ZeroDowntimeEventReplays\Commands\ReplayCommand;
+use Gosuperscript\ZeroDowntimeEventReplays\Commands\ReplayManagerCommand;
+use Gosuperscript\ZeroDowntimeEventReplays\Repositories\RedisReplayRepository;
+use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
