@@ -24,9 +24,10 @@ class EloquentZeroDowntimeProjectorTest extends TestCase
 
         // test foreign key on comments work
         $thrown = false;
+
         try {
             Comment::forProjection('foo')->create(['post_id' => Uuid::uuid4()->toString(), 'content' => 'foo']);
-        } catch (QueryException $e){
+        } catch (QueryException $e) {
             $this->assertStringContainsString("Foreign key violation", $e->getMessage());
             $thrown = true;
         }
@@ -51,6 +52,5 @@ class EloquentZeroDowntimeProjectorTest extends TestCase
 
         $this->assertFalse(Schema::hasTable('replay_foobar_posts'));
         $this->assertFalse(Schema::hasTable('replay_foobar_posts'));
-
     }
 }

@@ -6,9 +6,7 @@ use Exception;
 use Gosuperscript\ZeroDowntimeEventReplays\Replay;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Spatie\EventSourcing\EventHandlers\HandlesEvents;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
@@ -60,10 +58,10 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
     {
         collect($this->models())
             ->groupBy(function (Model $model) {
-               return $model->getConnectionName();
-            })->each(function ($models, $connection){
+                return $model->getConnectionName();
+            })->each(function ($models, $connection) {
                 $tables = [];
-                foreach ($models as $model){
+                foreach ($models as $model) {
                     if (! $model instanceof Model) {
                         throw new Exception("models in the models method should extend eloquents model class");
                     }
@@ -71,7 +69,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
 
                     $defaultValues = DB::connection($model->getConnectionName())->select("SELECT column_name, column_default FROM information_schema.columns WHERE (table_schema, table_name) = ('public', '{$ghostConnectionTable}') AND column_default is not null;");
                     $statements = [];
-                    collect($defaultValues)->filter(function ($defaultValue){
+                    collect($defaultValues)->filter(function ($defaultValue) {
                         return Str::contains($defaultValue->column_default, "_seq") && Str::contains($defaultValue->column_default, 'nextval(');
                     })->each(function ($defaultValue) use ($model, $ghostConnectionTable, &$statements) {
                         $statements[] = "DROP SEQUENCE IF EXISTS {$ghostConnectionTable}_{$defaultValue->column_name}_seq";
@@ -126,8 +124,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
 
             $this->createTableForModel($model);
         }
-        foreach ($this->fkStatements as $connection => $statements)
-        {
+        foreach ($this->fkStatements as $connection => $statements) {
             foreach ($statements as $statement) {
                 DB::connection($connection)->statement($statement);
             }
@@ -145,7 +142,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
 
         // fix sequence
         $defaultValues = DB::connection($model->getConnectionName())->select("SELECT column_name, column_default FROM information_schema.columns WHERE (table_schema, table_name) = ('public', '{$newTable}') AND column_default is not null;");
-        collect($defaultValues)->filter(function ($defaultValue){
+        collect($defaultValues)->filter(function ($defaultValue) {
             return Str::contains($defaultValue->column_default, "_seq") && Str::contains($defaultValue->column_default, 'nextval(');
         })->each(function ($defaultValue) use ($model, $newTable) {
             DB::connection($model->getConnectionName())->statement("ALTER TABLE {$newTable} ALTER {$defaultValue->column_name} DROP DEFAULT");
@@ -154,11 +151,10 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
         });
 
         // list all foreign keys, and copy them
-        if(!array_key_exists($model->getConnectionName(), $this->fkStatements)){
+        if (! array_key_exists($model->getConnectionName(), $this->fkStatements)) {
             $this->fkStatements[$model->getConnectionName()] = [];
         }
         $this->fkStatements[$model->getConnectionName()] = array_merge($this->fkStatements[$model->getConnectionName()], $this->getForeignKeyStatementsForModel($model, $ghostConnectionPrefix));
-
     }
 
     public function getGhostConnectionForModel(Model $model): string
@@ -168,7 +164,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
         return 'replay_' . $this->connection . '_' . $defaultConnection;
     }
 
-    private function getForeignKeyStatementsForModel(Model $model, string $prefix) : array
+    private function getForeignKeyStatementsForModel(Model $model, string $prefix): array
     {
         $foreignKeys = DB::connection($model->getConnectionName())
             ->select("
