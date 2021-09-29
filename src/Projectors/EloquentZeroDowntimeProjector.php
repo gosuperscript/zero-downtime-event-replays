@@ -7,6 +7,7 @@ use Gosuperscript\ZeroDowntimeEventReplays\Replay;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Spatie\EventSourcing\EventHandlers\HandlesEvents;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
@@ -137,7 +138,10 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
         $ghostConnection = $this->getGhostConnectionForModel($model);
         $ghostConnectionPrefix = config('database.connections.' . $ghostConnection . '.prefix');
         $newTable = $ghostConnectionPrefix . $model->getTable();
-        //  todo: Deal with postgres auto increments
+
+        if(Schema::connection($model->getConnectionName())->hasTable($newTable)){
+          return;
+        }
         DB::connection($model->getConnectionName())->statement("CREATE TABLE IF NOT EXISTS {$newTable} (LIKE {$model->getTable()} INCLUDING ALL);");
 
         // fix sequence
