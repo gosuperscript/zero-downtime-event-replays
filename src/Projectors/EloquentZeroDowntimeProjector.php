@@ -187,20 +187,20 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
             WHERE tc.constraint_type = 'FOREIGN KEY' AND tc.table_name='{$model->getTable()}';");
 
         $foreignKeyStatementsWithPrefix = collect($foreignKeys)
-            ->filter(function ($fk){
-                return collect($this->models())->map(function (Model $model){
+            ->filter(function ($fk) {
+                return collect($this->models())->map(function (Model $model) {
                     return $model->getTable();
                 })->contains($fk->foreign_table_name);
             })->map(function ($fk) use ($prefix) {
-            return "ALTER TABLE {$prefix}{$fk->table_name}
+                return "ALTER TABLE {$prefix}{$fk->table_name}
                     ADD CONSTRAINT {$fk->constraint_name}
                     FOREIGN KEY ({$fk->column_name})
                     REFERENCES {$prefix}{$fk->foreign_table_name} ({$fk->foreign_column_name});";
-        })->toArray();
+            })->toArray();
 
         $foreignKeyStatementsWithoutPrefix = collect($foreignKeys)
-            ->filter(function ($fk){
-                return !collect($this->models())->map(function (Model $model){
+            ->filter(function ($fk) {
+                return ! collect($this->models())->map(function (Model $model) {
                     return $model->getTable();
                 })->contains($fk->foreign_table_name);
             })->map(function ($fk) use ($prefix) {
