@@ -36,4 +36,11 @@
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>
+    <php>
+        <env name="DB_CONNECTION" value="pgsql"/>
+        <env name="DB_USERNAME" value=""/>
+        <env name="DB_PASSWORD" value=""/>
+        <env name="DB_DATABASE" value="zero_downtime_test_db"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
+    </php>
 </phpunit>
