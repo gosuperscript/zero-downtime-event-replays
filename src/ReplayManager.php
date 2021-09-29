@@ -47,6 +47,12 @@ class ReplayManager
         }
 
         $this->replayRepository->persist($replay);
+        // call useConnection on projectors to setup table structure
+        collect($replay->projectors)->map(function (string $projectorName) {
+            return $this->projectionist->getProjector($projectorName);
+        })->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
+            $zeroDowntimeProjector->forReplay()->useConnection($key);
+        });
     }
 
     public function startReplay(string $key, callable $onEventReplayed = null)
