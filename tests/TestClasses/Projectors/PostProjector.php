@@ -14,7 +14,7 @@ class PostProjector extends EloquentZeroDowntimeProjector
     {
         return [
             new Post(),
-            new Comment()
+            new Comment(),
         ];
     }
 
@@ -37,9 +37,7 @@ class PostProjector extends EloquentZeroDowntimeProjector
         /** @var Post $post */
         $post = Post::find($commentPlaced->aggregateRootUuid());
         $post->comments()->create([
-            'content' => $commentPlaced->content
+            'content' => $commentPlaced->content,
         ]);
     }
-
-
 }

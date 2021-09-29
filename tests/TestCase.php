@@ -53,10 +53,10 @@ class TestCase extends Orchestra
 
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignUuid('post_id')->constrained();;
+            $table->foreignUuid('post_id')->constrained();
+            ;
             $table->string('content');
             $table->timestamps();
         });
     }
-
 }

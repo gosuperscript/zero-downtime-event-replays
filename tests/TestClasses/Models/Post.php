@@ -22,9 +22,8 @@ class Post extends Model
         return 'string';
     }
 
-    public function comments() : HasMany
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
-
 }
