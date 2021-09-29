@@ -53,7 +53,6 @@ class ReplayManager
         })->each(function (ZeroDowntimeProjector $zeroDowntimeProjector) use ($key) {
             $zeroDowntimeProjector->forReplay()->useConnection($key);
         });
-
     }
 
     public function startReplay(string $key, callable $onEventReplayed = null)
