@@ -139,8 +139,8 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
         $ghostConnectionPrefix = config('database.connections.' . $ghostConnection . '.prefix');
         $newTable = $ghostConnectionPrefix . $model->getTable();
 
-        if(Schema::connection($model->getConnectionName())->hasTable($newTable)){
-          return;
+        if (Schema::connection($model->getConnectionName())->hasTable($newTable)) {
+            return;
         }
         DB::connection($model->getConnectionName())->statement("CREATE TABLE IF NOT EXISTS {$newTable} (LIKE {$model->getTable()} INCLUDING ALL);");
 
