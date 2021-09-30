@@ -23,7 +23,7 @@ class FakeProjector extends Projector implements ZeroDowntimeProjector
 
     public function forReplay(): ZeroDowntimeProjector
     {
-        // TODO: Implement forReplay() method.
+        return $this;
     }
 
     public function useConnection(string $connection): ZeroDowntimeProjector
