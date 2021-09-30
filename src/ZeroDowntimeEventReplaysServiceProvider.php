@@ -6,7 +6,6 @@ use Gosuperscript\ZeroDowntimeEventReplays\Commands\CreateReplay;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\DeleteReplay;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\EnableLiveProjection;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\ReplayCommand;
-use Gosuperscript\ZeroDowntimeEventReplays\Commands\ReplayManagerCommand;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\RedisReplayRepository;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
 use Spatie\LaravelPackageTools\Package;
@@ -22,7 +21,6 @@ class ZeroDowntimeEventReplaysServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_zero-downtime-event-replays_table')
             ->hasCommands(
-                ReplayManagerCommand::class,
                 CreateReplay::class,
                 DeleteReplay::class,
                 ReplayCommand::class,
