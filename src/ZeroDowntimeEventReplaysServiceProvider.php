@@ -18,7 +18,6 @@ class ZeroDowntimeEventReplaysServiceProvider extends PackageServiceProvider
         $package
             ->name('zero-downtime-event-replays')
             ->hasConfigFile()
-            ->hasViews()
             ->hasMigration('create_zero-downtime-event-replays_table')
             ->hasCommands(
                 CreateReplay::class,
