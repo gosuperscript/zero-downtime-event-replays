@@ -8,12 +8,11 @@ use Spatie\EventSourcing\Projectionist;
 
 class FakeProjectionist extends Projectionist
 {
-    public array $projectors = [];
-
     public array $replays = [];
 
     public function __construct()
     {
+        parent::__construct(['catch_exceptions' => false]);
     }
 
     public function addProjector($projector, ?Projector $class = null): Projectionist
