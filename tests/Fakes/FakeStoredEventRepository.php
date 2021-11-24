@@ -55,4 +55,9 @@ class FakeStoredEventRepository implements StoredEventRepository
     {
         $this->countsStartingFrom[$startingFrom] = $count;
     }
+
+    public function find(int $id): StoredEvent
+    {
+        // TODO: Implement find() method.
+    }
 }

@@ -5,6 +5,7 @@ namespace Gosuperscript\ZeroDowntimeEventReplays;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\CreateReplay;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\DeleteReplay;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\EnableLiveProjection;
+use Gosuperscript\ZeroDowntimeEventReplays\Commands\PutReplayLive;
 use Gosuperscript\ZeroDowntimeEventReplays\Commands\ReplayCommand;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\RedisReplayRepository;
 use Gosuperscript\ZeroDowntimeEventReplays\Repositories\ReplayRepository;
@@ -23,7 +24,8 @@ class ZeroDowntimeEventReplaysServiceProvider extends PackageServiceProvider
                 CreateReplay::class,
                 DeleteReplay::class,
                 ReplayCommand::class,
-                EnableLiveProjection::class
+                EnableLiveProjection::class,
+                PutReplayLive::class,
             );
     }
 
