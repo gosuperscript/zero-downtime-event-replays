@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Projectable
 {
+    /**
+     * @param string|null $replayKey
+     * @return Builder|static
+     */
     public static function forProjection(?string $replayKey): Builder
     {
         /** @var Model $self */
