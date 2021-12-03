@@ -10,6 +10,7 @@ trait Projectable
     /**
      * @param string|null $replayKey
      * @return Builder|static
+     * @psalm-return Builder
      */
     public static function forProjection(?string $replayKey): Builder
     {
