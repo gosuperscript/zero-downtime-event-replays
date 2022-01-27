@@ -87,7 +87,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
             });
     }
 
-    public function handle(StoredEvent $storedEvent)
+    public function handle(StoredEvent $storedEvent): void
     {
         $this->handleEvent($storedEvent);
         if (! $this->isReplay) {
