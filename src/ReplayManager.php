@@ -138,7 +138,7 @@ class ReplayManager
     public function removeReplay(string $key): void
     {
         $replay = $this->replayRepository->getReplayByKey($key);
-        if(!$replay){
+        if (! $replay) {
             return;
         }
         collect($replay->projectors)->map(function (string $projectorName) {
