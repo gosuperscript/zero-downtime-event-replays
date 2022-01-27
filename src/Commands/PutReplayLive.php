@@ -17,6 +17,7 @@ class PutReplayLive extends Command
 
         if (! $this->option('force') && ! $this->confirm("Are you sure you want to promote the replay to production?")) {
             $this->warn("Aborted");
+
             return;
         }
         $replayManager->putReplayLive($key);
