@@ -19,7 +19,7 @@
     "require": {
         "php": "^8.0",
         "illuminate/contracts": "^8.37|^9.0",
-        "spatie/laravel-event-sourcing": "^5|^6|^7",
+        "spatie/laravel-event-sourcing": "^5.0|^6.0|^7.0",
         "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
