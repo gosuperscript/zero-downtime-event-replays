@@ -27,7 +27,7 @@ class FakeProjectionist extends Projectionist
         return $this->projectors[$name] ?? null;
     }
 
-    public function replay(Collection $projectors, int $startingFromEventId = 0, callable $onEventReplayed = null): void
+    public function replay(Collection $projectors, int $startingFromEventId = 0, callable $onEventReplayed = null, ?string $aggregateUuid = null): void
     {
         $this->replays[] = [
             'projectors' => $projectors,
