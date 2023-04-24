@@ -32,7 +32,7 @@ class ReplayManager
             throw CreateReplayException::replayAlreadyExists($key);
         }
 
-//        verify projectors are configured
+        //        verify projectors are configured
         $projectors = collect($projectorClassNames)
             ->map(fn (string $projectorName) => ltrim($projectorName, '\\'))
             ->each(function (string $projectorName) {
