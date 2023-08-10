@@ -49,9 +49,8 @@ class Replay
 
     public function finished(?CarbonInterface $finishedAt = null)
     {
-        /** @var Play $play */
         $play = $this->getActivePlay();
-        if (! $play) {
+        if ($play === null) {
             return;
         }
         $play->finished($finishedAt);

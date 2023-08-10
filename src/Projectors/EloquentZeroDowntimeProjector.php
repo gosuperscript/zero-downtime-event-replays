@@ -62,6 +62,7 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
                 return $model->getConnectionName();
             })->each(function ($models, $connection) {
                 $tables = [];
+                $statements = [];
                 foreach ($models as $model) {
                     if (! $model instanceof Model) {
                         throw new Exception("models in the models method should extend eloquents model class");
@@ -69,10 +70,9 @@ abstract class EloquentZeroDowntimeProjector extends Projector implements ZeroDo
                     $ghostConnectionTable = config('database.connections.' . $this->getGhostConnectionForModel($model) . '.prefix') . $model->getTable();
 
                     $defaultValues = DB::connection($model->getConnectionName())->select("SELECT column_name, column_default FROM information_schema.columns WHERE (table_schema, table_name) = ('public', '{$ghostConnectionTable}') AND column_default is not null;");
-                    $statements = [];
                     collect($defaultValues)->filter(function ($defaultValue) {
                         return Str::contains($defaultValue->column_default, "_seq") && Str::contains($defaultValue->column_default, 'nextval(');
-                    })->each(function ($defaultValue) use ($model, $ghostConnectionTable, &$statements) {
+                    })->each(function ($defaultValue) use ($ghostConnectionTable, &$statements) {
                         $statements[] = "DROP SEQUENCE IF EXISTS {$ghostConnectionTable}_{$defaultValue->column_name}_seq";
                     });
                     $tables[] = $ghostConnectionTable;
