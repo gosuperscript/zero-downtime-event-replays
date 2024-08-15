@@ -19,6 +19,8 @@ jobs:
         exclude:
           - php: 8.0
             laravel: 10.*
+          - php: 8.1
+            laravel: 11.*
         include:
           - laravel: 9.*
             testbench: ^7.0
@@ -63,7 +65,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
