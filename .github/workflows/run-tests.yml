@@ -73,5 +73,5 @@ jobs:
       - name: Execute tests
         run: vendor/bin/phpunit
         env:
-          DB_SOCKET: "${{ job.services.postgres.ports[5432] }}"
           DATABASE_URL: "postgres://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres"
+          DB_URL: "postgres://postgres:postgres@postgres:${{ job.services.postgres.ports[5432] }}/postgres"
