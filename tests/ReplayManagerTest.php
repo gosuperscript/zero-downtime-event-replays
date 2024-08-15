@@ -11,8 +11,7 @@ use Gosuperscript\ZeroDowntimeEventReplays\Tests\Fakes\FakeStoredEventRepository
 
 class ReplayManagerTest extends TestCase
 {
-    /** @test */
-    public function it_throws_exception_when_replay_already_exists_on_start()
+    public function test_it_throws_exception_when_replay_already_exists_on_start()
     {
         $manager = new ReplayManager(new InMemoryReplayRepository(), new FakeProjectionist(), new FakeStoredEventRepository());
         $manager->createReplay('foo', []);
@@ -27,8 +26,7 @@ class ReplayManagerTest extends TestCase
         $this->assertTrue($thrown, "Exception StartReplayException expected but not thrown");
     }
 
-    /** @test */
-    public function it_validates_if_projector_is_configured()
+    public function test_it_validates_if_projector_is_configured()
     {
         $projectionist = new FakeProjectionist();
         $repo = new InMemoryReplayRepository();
@@ -42,8 +40,7 @@ class ReplayManagerTest extends TestCase
         $this->assertNull($repo->getReplayByKey('foo'));
     }
 
-    /** @test */
-    public function it_persists_replay_with_valid_projectors()
+    public function test_it_persists_replay_with_valid_projectors()
     {
         $projectionist = new FakeProjectionist();
         $projectionist->addProjector('RegisteredProjector');
@@ -59,8 +56,7 @@ class ReplayManagerTest extends TestCase
         $this->assertEquals(['RegisteredProjector'], $replay->projectors);
     }
 
-    /** @test */
-    public function it_starts_a_replay()
+    public function test_it_starts_a_replay()
     {
         $repo = new InMemoryReplayRepository();
         $projectionist = new FakeProjectionist();
@@ -75,8 +71,7 @@ class ReplayManagerTest extends TestCase
         $this->assertEquals(0, $projectionist->replays[0]['startingFrom']);
     }
 
-    /** @test */
-    public function it_starts_a_replay_from_last_projected_event()
+    public function test_it_starts_a_replay_from_last_projected_event()
     {
         $repo = new InMemoryReplayRepository();
         $projectionist = new FakeProjectionist();
@@ -95,8 +90,7 @@ class ReplayManagerTest extends TestCase
         $this->assertEquals(101, $projectionist->replays[0]['startingFrom']);
     }
 
-    /** @test */
-    public function it_gets_replay_lag()
+    public function test_it_gets_replay_lag()
     {
         $repo = new InMemoryReplayRepository();
         $projectionist = new FakeProjectionist();
@@ -113,8 +107,7 @@ class ReplayManagerTest extends TestCase
         $this->assertEquals(44, $manager->getReplayLag('foo'));
     }
 
-    /** @test */
-    public function it_enables_projections_when_lag_is_0()
+    public function test_it_enables_projections_when_lag_is_0()
     {
         $repo = new InMemoryReplayRepository();
         $projectionist = new FakeProjectionist();
@@ -130,8 +123,7 @@ class ReplayManagerTest extends TestCase
         $this->assertTrue($replay->projectionsEnabled);
     }
 
-    /** @test */
-    public function it_does_not_enable_projections_when_lag_is_not_0()
+    public function test_it_does_not_enable_projections_when_lag_is_not_0()
     {
         $repo = new InMemoryReplayRepository();
         $projectionist = new FakeProjectionist();
@@ -155,8 +147,7 @@ class ReplayManagerTest extends TestCase
         $this->assertTrue($thrown, "exception not thrown");
     }
 
-    /** @test */
-    public function it_calls_projectors_to_put_replay_live()
+    public function test_it_calls_projectors_to_put_replay_live()
     {
         $projector = new FakeProjector();
 
@@ -174,8 +165,7 @@ class ReplayManagerTest extends TestCase
         $this->assertTrue($projector->hasBeenPutLive());
     }
 
-    /** @test */
-    public function it_can_remove_replays()
+    public function test_it_can_remove_replays()
     {
         $projector = new FakeProjector();
 

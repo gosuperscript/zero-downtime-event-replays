@@ -8,82 +8,80 @@ use Gosuperscript\ZeroDowntimeEventReplays\ReplaySerializer;
 
 class ReplaySerializerTest extends TestCase
 {
-    /** @test
-     * @dataProvider provider
-     */
-    public function it_parses_and_reconstructs_plays(Replay $replay)
+    /** @dataProvider provider */
+    public function test_it_parses_and_reconstructs_plays(Replay $replay)
     {
         $data = ReplaySerializer::toArray($replay);
         // Make sure array can be json encoded
         $data = json_decode(json_encode($data), true);
 
         $reconstructedReplay = ReplaySerializer::fromArray($data);
-        $this->assertEquals($replay, $reconstructedReplay);
+        self::assertEquals($replay, $reconstructedReplay);
     }
 
-    public function provider(): array
+    public static function provider(): array
     {
         return [
-            [$this->replay()],
-            [$this->replayWithProjectors()],
-            [$this->startedReplay()],
-            [$this->replayInProgress()],
-            [$this->finishedReplay()],
-            [$this->twoReplays()],
-            [$this->enabledProjections()],
+            [self::replay()],
+            [self::replayWithProjectors()],
+            [self::startedReplay()],
+            [self::replayInProgress()],
+            [self::finishedReplay()],
+            [self::twoReplays()],
+            [self::enabledProjections()],
         ];
     }
 
-    private function replay(): Replay
+    private static function replay(): Replay
     {
         return new Replay('foo');
     }
 
-    private function replayWithProjectors(): Replay
+    private static function replayWithProjectors(): Replay
     {
-        $replay = $this->replay();
+        $replay = self::replay();
         $replay->addProjector('foobar');
         $replay->addProjector('baz');
 
         return $replay;
     }
 
-    private function startedReplay(): Replay
+    private static function startedReplay(): Replay
     {
-        $replay = $this->replayWithProjectors();
+        $replay = self::replayWithProjectors();
         $replay->started(0, Carbon::parse('2021-01-01 10:00:00'));
 
         return $replay;
     }
 
-    private function replayInProgress(): Replay
+    private static function replayInProgress(): Replay
     {
-        $replay = $this->startedReplay();
+        $replay = self::startedReplay();
         $replay->setLastProjectedEventNumber(10);
 
         return $replay;
     }
 
-    private function finishedReplay(): Replay
+    private static function finishedReplay(): Replay
     {
-        $replay = $this->replayInProgress();
+        $replay = self::replayInProgress();
         $replay->finished(Carbon::parse('2021-01-01 12:00:00'));
 
         return $replay;
     }
 
-    private function twoReplays(): Replay
+    private static function twoReplays(): Replay
     {
-        $replay = $this->finishedReplay();
+        $replay = self::finishedReplay();
         $replay->started(100, Carbon::parse('2021-01-02 14:00:00'));
         $replay->finished(Carbon::parse('2021-01-02 16:00:00'));
 
         return $replay;
     }
 
-    private function enabledProjections(): Replay
+    private static function enabledProjections(): Replay
     {
-        $replay = $this->replay();
+        $replay = self::replay();
         $replay->enableProjections();
 
         return $replay;

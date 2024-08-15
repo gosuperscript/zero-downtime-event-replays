@@ -12,8 +12,7 @@ use Ramsey\Uuid\Uuid;
 
 class EloquentZeroDowntimeProjectorTest extends TestCase
 {
-    /** @test */
-    public function it_creates_new_tables_with_the_right_sequences_and_foreign_keys()
+    public function test_it_creates_new_tables_with_the_right_sequences_and_foreign_keys()
     {
         $projector = new PostProjector();
         $projector->forReplay()->useConnection('foo');
@@ -39,8 +38,7 @@ class EloquentZeroDowntimeProjectorTest extends TestCase
         $this->assertEquals(1, $comment->id);
     }
 
-    /** @test */
-    public function it_drops_table_and_sequences_on_removal()
+    public function test_it_drops_table_and_sequences_on_removal()
     {
         $projector = new PostProjector();
         $projector->forReplay()->useConnection('foobar');
