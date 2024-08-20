@@ -2,7 +2,7 @@
 
 namespace Gosuperscript\ZeroDowntimeEventReplays\Exceptions;
 
-class CreateReplayException extends \Exception
+final class CreateReplayException extends \Exception
 {
     public static function replayAlreadyExists(string $key): self
     {
