@@ -11,7 +11,7 @@ class FakeStoredEventRepository implements StoredEventRepository
 {
     public array $countsStartingFrom = [];
 
-    public function retrieveAll(string $uuid = null): LazyCollection
+    public function retrieveAll(?string $uuid = null): LazyCollection
     {
         // TODO: Implement retrieveAll() method.
     }
@@ -21,22 +21,27 @@ class FakeStoredEventRepository implements StoredEventRepository
         // TODO: Implement retrieveAllStartingFrom() method.
     }
 
+    public function runForAllStartingFrom(int $startingFrom, callable|\Closure $function, int $chunkSize = 1000, ?string $uuid = null, array $events = []): bool
+    {
+        // TODO: Implement runForAllStartingFrom() method.
+    }
+
     public function retrieveAllAfterVersion(int $aggregateVersion, string $aggregateUuid): LazyCollection
     {
         // TODO: Implement retrieveAllAfterVersion() method.
     }
 
-    public function countAllStartingFrom(int $startingFrom, string $uuid = null): int
+    public function countAllStartingFrom(int $startingFrom, ?string $uuid = null, array $events = []): int
     {
         return $this->countsStartingFrom[$startingFrom] ?? 0;
     }
 
-    public function persist(ShouldBeStored $event, string $uuid = null, int $aggregateVersion = null): StoredEvent
+    public function persist(ShouldBeStored $event, ?string $uuid = null, int $aggregateVersion = null): StoredEvent
     {
         // TODO: Implement persist() method.
     }
 
-    public function persistMany(array $events, string $uuid = null, int $aggregateVersion = null): LazyCollection
+    public function persistMany(array $events, ?string $uuid = null, int $aggregateVersion = null): LazyCollection
     {
         // TODO: Implement persistMany() method.
     }
@@ -56,7 +61,7 @@ class FakeStoredEventRepository implements StoredEventRepository
         $this->countsStartingFrom[$startingFrom] = $count;
     }
 
-    public function find(int $id): StoredEvent
+    public function find(int $id): StoredEvent;
     {
         // TODO: Implement find() method.
     }
