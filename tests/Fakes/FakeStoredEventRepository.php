@@ -16,7 +16,7 @@ class FakeStoredEventRepository implements StoredEventRepository
         // TODO: Implement retrieveAll() method.
     }
 
-    public function retrieveAllStartingFrom(int $startingFrom, string $uuid = null): LazyCollection
+    public function retrieveAllStartingFrom(int $startingFrom, ?string $uuid = null, array $events = []): LazyCollection
     {
         // TODO: Implement retrieveAllStartingFrom() method.
     }
